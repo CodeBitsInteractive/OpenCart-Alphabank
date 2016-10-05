@@ -81,7 +81,14 @@ class ControllerPaymentAlphabank extends Controller{
             $this->session->data['error'] = 'Ошибка #' . $_responce['errorCode'] . ': ' . $_responce['errorMessage'];
             $this->response->redirect($this->url->link('checkout/cart'));
         }else{
-            header('Location: '.$_responce['formUrl']);
+            echo '<html>' . "\n";
+            echo '<head>' . "\n";
+            echo '<meta http-equiv="Refresh" content="0; url=' . $_responce['formUrl'] . '">' . "\n";
+            echo '</head>' . "\n";
+            echo '<body>' . "\n";
+            echo '<p>Сейчас вы будете перенаправлены для обработки платежа. Если этого не произошло - перейдите по <a href="' . $_responce['formUrl'] . '">ссылке</a>!</p>' . "\n";
+            echo '</body>' . "\n";
+            echo '</html>' . "\n";
             exit();
         }
         
@@ -124,15 +131,7 @@ class ControllerPaymentAlphabank extends Controller{
         if ($this->session->data['payment_method']['code'] == 'alphabank') {
             $this->cart->clear(); // Очистить корзину
             unset($_SESSION['order_id']);
-            echo '<html>' . "\n";
-            echo '<head>' . "\n";
-            echo '<meta http-equiv="Refresh" content="0; url=' . $this->url->link('checkout/success') . '">' . "\n";
-            echo '</head>' . "\n";
-            echo '<body>' . "\n";
-            echo '<p>Сейчас вы будете перенаправлены обратно в магазин. Если этого не произошло - перейдите по <a href="' . $this->url->link('checkout/success') . '">ссылке</a>!</p>' . "\n";
-            echo '</body>' . "\n";
-            echo '</html>' . "\n";
-            exit();
+            $this->response->redirect($this->url->link('checkout/success', 'token=' . $this->session->data['token'], 'SSL'));
 	}else{
             unset($_SESSION['order_id']);
             $this->session->data['error'] = 'Неверный статус проведения платежа';
