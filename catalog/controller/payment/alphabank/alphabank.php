@@ -61,7 +61,7 @@ class ControllerPaymentAlphabank extends Controller{
 	}
         
 
-        $_sgateway = ($this->config->get('alphabank_test'))?'https://test.paymentgate.ru/testpayment/rest/':'https://engine.paymentgate.ru/payment/rest/';
+        $_sgateway = ($this->config->get('alphabank_test'))?'https://web.rbsuat.com/ab/rest/':'https://engine.paymentgate.ru/payment/rest/';
         $_slogin = $this->config->get('alphabank_payment_slogin');
         $_spassword = $this->config->get('alphabank_payment_spassword');
         $_totalcop = $order_info['total']*100;
@@ -101,7 +101,7 @@ class ControllerPaymentAlphabank extends Controller{
             $this->load->model('payment/alphabank');
             $this->load->language('payment/alphabank');
         
-            $_sgateway = ($this->config->get('alphabank_test'))?'https://test.paymentgate.ru/testpayment/rest/':'https://engine.paymentgate.ru/payment/rest/';
+            $_sgateway = ($this->config->get('alphabank_test'))?'https://web.rbsuat.com/ab/rest/':'https://engine.paymentgate.ru/payment/rest/';
             $_slogin = $this->config->get('alphabank_payment_slogin');
             $_spassword = $this->config->get('alphabank_payment_spassword');
             $_qdata = array(
